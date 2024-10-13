@@ -1,0 +1,79 @@
+//new document
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BMI Calculator</title>
+    <!-- Add your external CSS link here -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>BMI Calculator</h1>
+
+<p>Enter your height (meters for metric, inches for US units):</p>
+<input type="text" id="height" placeholder="Enter height"/>
+
+<p>Enter your weight (kg for metric, lbs for US units):</p>
+<input type="text" id="weight" placeholder="Enter weight"/>
+
+<p />
+<!-- Buttons to calculate BMI for metric and US units -->
+<input type="button" value="Calculate BMI (Metric)" onclick="calculateMetricBMI();">
+<input type="button" value="Calculate BMI (US)" onclick="calculateUSBMI();">
+
+<h2>The BMI value is: <span id="output"> </span></h2>
+<h2>This person is: <span id='comment'></span></h2>
+
+<!-- External JavaScript -->
+<script>
+    // Function to calculate BMI in metric units
+    function calculateMetricBMI() {
+        var height = parseFloat(document.getElementById("height").value); // Get numeric value for height
+        var weight = parseFloat(document.getElementById("weight").value); // Get numeric value for weight
+        
+        if (height > 0 && weight > 0) {
+            // BMI calculation for metric: weight (kg) ÷ height^2 (m)
+            let bmiValue = weight / (height * height);
+            displayBMI(bmiValue);
+        } else {
+            alert("Please enter valid height and weight values.");
+        }
+    }
+
+    // Function to calculate BMI in US units
+    function calculateUSBMI() {
+        var height = parseFloat(document.getElementById("height").value); // Get numeric value for height
+        var weight = parseFloat(document.getElementById("weight").value); // Get numeric value for weight
+
+        if (height > 0 && weight > 0) {
+            // BMI calculation for US: (weight (lb) ÷ height^2 (in)) x 703
+            let bmiValue = (weight / (height * height)) * 703;
+            displayBMI(bmiValue);
+        } else {
+            alert("Please enter valid height and weight values.");
+        }
+    }
+
+    // Function to display the BMI value and category
+    function displayBMI(bmiValue) {
+        document.getElementById("output").innerHTML = bmiValue.toFixed(2); // Display BMI value
+
+        // Determine the BMI category
+        let bmiComment = "";
+        if (bmiValue < 18.5) {
+            bmiComment = "Underweight";
+        } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
+            bmiComment = "Normal";
+        } else if (bmiValue >= 25 && bmiValue <= 29.9) {
+            bmiComment = "Overweight";
+        } else {
+            bmiComment = "Obese";
+        }
+
+        document.getElementById("comment").innerHTML = bmiComment; // Display BMI category
+    }
+</script>
+
+</body>
+</html>
